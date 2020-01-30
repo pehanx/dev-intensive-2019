@@ -94,16 +94,16 @@ object Utils {
 
     fun toInitials(firstName: String?, lastName: String?): String? {
 
-        return if (!firstName.isNullOrBlank()){
-            val firstInitial = firstName[0].toUpperCase()
-            return if (!lastName.isNullOrBlank()){
-                val secondInitial = lastName[0].toUpperCase()
-                "$firstInitial$secondInitial"
-            }else{
-                "$firstInitial"
-            }
+        return if( firstName.isNullOrBlank() ){
+            null
         }else{
-            "null"
+            val first = firstName[0].toUpperCase()
+            if (lastName.isNullOrBlank()){
+                "$first"
+            }else{
+                val second = lastName[0].toUpperCase()
+                "$first$second"
+            }
         }
     }
 }
