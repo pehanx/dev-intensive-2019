@@ -5,8 +5,8 @@ object Utils {
 
         val parts:List<String>? = fullName?.split(" ")
 
-        var firstName = parts?.getOrNull(0)
-        var lastName= parts?.getOrNull(1)
+        val firstName = parts?.getOrNull(0)
+        val lastName= parts?.getOrNull(1)
 //        return Pair(firstName, lastName)
         return if (fullName.isNullOrBlank()) null to null
         else firstName to lastName
@@ -15,15 +15,9 @@ object Utils {
 
     fun transliteration(payload: String, divider:String = " "):String {
 
-        val parts:List<String>? = payload.split(" ")
+        val pattern = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ "
 
-        var firstName = parts?.getOrNull(0)
-        var lastName= parts?.getOrNull(1)
-
-        val pattern: String = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
-
-        fun textToRegex(fistOrSecondName:String?) =
-            fistOrSecondName?.replace(
+        return payload.replace(
                 Regex("[$pattern]")) {
                 when (it.value) {
                     "а"->"a"
@@ -92,30 +86,24 @@ object Utils {
                     "Э"->"E"
                     "Ю"->"Yu"
                     "Я"->"Ya"
+                    " "->divider
                     else -> it.value
                 }
             }
-
-        return "${textToRegex(firstName)}$divider${textToRegex(lastName)}"
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
 
-        val firstInitial = firstName?.getOrNull(0)?.toUpperCase()
-        val secondInitial = lastName?.getOrNull(0)?.toUpperCase()
-
-//        return if(firstName.isNullOrBlank() && lastName.isNullOrBlank()) {
-//            null
-//        }else if(lastName.isNullOrBlank()){
-//            "$firstInitial"
-//        }else{
-//            "$firstInitial$secondInitial"
-//        }
-        var initials = ""
-        if(firstInitial!=null)  initials += "$firstInitial"
-        if(secondInitial!=null) initials += "$secondInitial"
-
-        return if(initials != "") initials else null
-
+        return if (!firstName.isNullOrBlank()){
+            val firstInitial = firstName[0].toUpperCase()
+            return if (!lastName.isNullOrBlank()){
+                val secondInitial = lastName[0].toUpperCase()
+                "$firstInitial$secondInitial"
+            }else{
+                "$firstInitial"
+            }
+        }else{
+            null
+        }
     }
 }
