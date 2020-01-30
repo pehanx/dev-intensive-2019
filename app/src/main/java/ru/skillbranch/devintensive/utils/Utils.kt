@@ -103,7 +103,7 @@ object Utils {
                 "$firstInitial"
             }
         }else{
-            null
+            "null"
         }
     }
 }
