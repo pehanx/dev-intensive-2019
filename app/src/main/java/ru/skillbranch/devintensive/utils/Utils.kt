@@ -1,5 +1,12 @@
 package ru.skillbranch.devintensive.utils
 
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import ru.skillbranch.devintensive.models.Bender
+
 object Utils {
     fun parseFullName(fullName:String?):Pair<String?, String?> {
 
@@ -109,5 +116,13 @@ object Utils {
         }else {
             "$firstInitial"
         }
+    }
+
+    fun sendMessageToBender(messageEt:EditText, benderObj: Bender, benderImage:ImageView, textTxt:TextView){
+        val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString())
+        messageEt.setText("")
+        val (r,g,b) = color
+        benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
+        textTxt.text = phrase
     }
 }

@@ -1,5 +1,7 @@
 package ru.skillbranch.devintensive.extensions
 
+import ru.skillbranch.devintensive.models.Bender
+
 fun String.truncate(countSymbols: Int = 16):String{
 
     return if(this.trim().length >= countSymbols){
@@ -18,4 +20,28 @@ fun String.stripHtml():String{
                result = result.trim()
 
     return result
+}
+
+fun String.isValid(question: Bender.Question): Boolean {
+    return when (question) {
+        Bender.Question.NAME -> {
+            val firstChar = this[0]
+            return firstChar.isUpperCase()
+        }
+        Bender.Question.PROFESSION -> {
+            val firstChar = this[0]
+            return firstChar.isLowerCase()
+        }
+        Bender.Question.MATERIAL -> {
+            return !Regex("""\d+""").containsMatchIn(this)
+        }
+        Bender.Question.BDAY -> {
+            return Regex("""\d+""").containsMatchIn(this)
+        }
+        Bender.Question.SERIAL -> {
+            return Regex("""\d{7}""").containsMatchIn(this)
+        }
+        else -> true
+    }
+
 }
