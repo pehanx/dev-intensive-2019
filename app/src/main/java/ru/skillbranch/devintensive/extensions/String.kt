@@ -34,14 +34,14 @@ fun String.isValid(question: Bender.Question): Boolean {
                 return firstChar.isLowerCase()
             }
             Bender.Question.MATERIAL -> {
-                return !Regex("""\d+""").containsMatchIn(this)
+                return !Regex("""\d+""").matches(this)
             }
             Bender.Question.BDAY -> {
-                return Regex("""\d+""").containsMatchIn(this)
+                return Regex("""\d+""").matches(this)
             }
             Bender.Question.SERIAL -> {
                 return if(this.length == 7){
-                    Regex("""\d+""").containsMatchIn(this)
+                    Regex("""\d+""").matches(this)
                 } else false
             }
             else -> true
