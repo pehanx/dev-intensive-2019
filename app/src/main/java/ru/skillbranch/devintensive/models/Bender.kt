@@ -17,16 +17,14 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
     }
 
     fun listenAnswer(answer:String):Pair<String, Triple<Int, Int, Int>> {
-        return if (question == Question.IDLE) {
-            question.question to status.color
-        } else {
-            if (question.answer.contains(answer)) {
+        return if (question.answer.contains(answer)) {
                 question = question.nextQuestion()
-                "Отлично - это правильный ответ!\n${question.question}" to status.color
+                if (question == Question.IDLE) "${question.errorMessage}\n${question.question}" to status.color
+                else "Отлично - это правильный ответ!\n${question.question}" to status.color
             } else {
                 if (answer.isValid(question)) {
                     errorsAnswer++
-                    if (errorsAnswer == 4) {
+                    if (errorsAnswer == 3) {
                         errorsAnswer = 0
                         status = Status.NORMAL
                         question = Question.NAME
@@ -39,7 +37,6 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
                     "${question.errorMessage}\n${question.question}" to status.color
                 }
             }
-        }
     }
 
 
