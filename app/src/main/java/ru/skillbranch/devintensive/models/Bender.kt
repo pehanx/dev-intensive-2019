@@ -26,7 +26,7 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
             } else {
                 if (answer.isValid(question)) {
                     errorsAnswer++
-                    if (errorsAnswer > 3) {
+                    if (errorsAnswer == 4) {
                         errorsAnswer = 0
                         status = Status.NORMAL
                         question = Question.NAME
