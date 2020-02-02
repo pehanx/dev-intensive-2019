@@ -23,25 +23,28 @@ fun String.stripHtml():String{
 }
 
 fun String.isValid(question: Bender.Question): Boolean {
-    return when (question) {
-        Bender.Question.NAME -> {
-            val firstChar = this[0]
-            return firstChar.isUpperCase()
+    if(!this.isBlank()){
+        return when (question) {
+            Bender.Question.NAME -> {
+                val firstChar = this[0]
+                return firstChar.isUpperCase()
+            }
+            Bender.Question.PROFESSION -> {
+                val firstChar = this[0]
+                return firstChar.isLowerCase()
+            }
+            Bender.Question.MATERIAL -> {
+                return !Regex("""\d+""").containsMatchIn(this)
+            }
+            Bender.Question.BDAY -> {
+                return Regex("""\d+""").containsMatchIn(this)
+            }
+            Bender.Question.SERIAL -> {
+                return if(this.length == 7){
+                    Regex("""\d+""").containsMatchIn(this)
+                } else false
+            }
+            else -> true
         }
-        Bender.Question.PROFESSION -> {
-            val firstChar = this[0]
-            return firstChar.isLowerCase()
-        }
-        Bender.Question.MATERIAL -> {
-            return !Regex("""\d+""").containsMatchIn(this)
-        }
-        Bender.Question.BDAY -> {
-            return Regex("""\d+""").containsMatchIn(this)
-        }
-        Bender.Question.SERIAL -> {
-            return Regex("""\d{7}""").containsMatchIn(this)
-        }
-        else -> true
-    }
-
+    }else return false
 }
