@@ -5,6 +5,8 @@ import ru.skillbranch.devintensive.extensions.isValid
 
 class Bender(var status:Status = Status.NORMAL, var question: Question = Question.NAME) {
 
+    var errorsAnswer = 0
+
     fun askQuestion():String =  when (question){
         Question.NAME -> Question.NAME.question
         Question.PROFESSION -> Question.PROFESSION.question
@@ -36,8 +38,20 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
             question = question.nextQuestion()
             "Отлично - это правильный ответ!\n${question.question}" to status.color
         } else {
-            status = status.nextStatus()
-            "Это не правильный ответ!\n${question.question}" to status.color
+            if (answer.isValid(question)){
+                errorsAnswer++
+                if(errorsAnswer>3){
+                    errorsAnswer = 0
+                    status = Status.NORMAL
+                    question = Question.NAME
+                    "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
+                }else{
+                    status = status.nextStatus()
+                    "Это не правильный ответ!\n${question.question}" to status.color
+                }
+            }else{
+                "${question.errorMessage}\n${question.question}" to status.color
+            }
         }
 
     }
@@ -59,7 +73,7 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
     }
 
     enum class Question(val question: String, val answer: List<String>, val errorMessage:String){
-        NAME("Как меня зовут?", listOf("Бендер","bender"), "Имя должно начинаться с заглавной буквы") {
+        NAME("Как меня зовут?", listOf("Бендер","Bender"), "Имя должно начинаться с заглавной буквы") {
             override fun nextQuestion(): Question = PROFESSION
         },
         PROFESSION("Назови мою профессию?", listOf("сгибальщик","bender"), "Профессия должна начинаться со строчной буквы"){
