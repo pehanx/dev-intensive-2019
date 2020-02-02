@@ -13,5 +13,5 @@
     <dimen name="spacing_tiny_4">4dp</dimen>
 
     <!-- button sizes -->
-    <dimen name="image_btn_size_24">24dp</dimen>
+    <dimen name="image_view_size_32">32dp</dimen>
 </resources>
