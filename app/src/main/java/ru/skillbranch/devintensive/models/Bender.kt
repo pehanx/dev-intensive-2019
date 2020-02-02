@@ -37,7 +37,7 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
             "Отлично - это правильный ответ!\n${question.question}" to status.color
         } else {
             status = status.nextStatus()
-            "Это неправильный ответ!\n${question.question}" to status.color
+            "Это не правильный ответ!\n${question.question}" to status.color
         }
 
     }
@@ -59,7 +59,7 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
     }
 
     enum class Question(val question: String, val answer: List<String>, val errorMessage:String){
-        NAME("Как меня зовут?", listOf("Бендер","Bender"), "Имя должно начинаться с заглавной буквы") {
+        NAME("Как меня зовут?", listOf("Бендер","bender"), "Имя должно начинаться с заглавной буквы") {
             override fun nextQuestion(): Question = PROFESSION
         },
         PROFESSION("Назови мою профессию?", listOf("сгибальщик","bender"), "Профессия должна начинаться со строчной буквы"){
@@ -71,7 +71,7 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
         BDAY("Когда меня создали?", listOf("2993"), "Год моего рождения должен содержать только цифры"){
             override fun nextQuestion(): Question = SERIAL
         },
-        SERIAL("Мой серийный номер", listOf("2716057"), "Серийный номер содержит только цифры, и их 7"){
+        SERIAL("Мой серийный номер?", listOf("2716057"), "Серийный номер содержит только цифры, и их 7"){
             override fun nextQuestion(): Question = IDLE
         },
         IDLE("На этом все, вопросов больше нет", listOf(), "Отлично - ты справился"){
