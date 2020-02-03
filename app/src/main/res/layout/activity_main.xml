@@ -52,8 +52,8 @@
 
         <ImageView
             android:id="@+id/iv_send"
-            android:layout_width="@dimen/image_view_size_32"
-            android:layout_height="@dimen/image_view_size_32"
+            android:layout_width="@dimen/imageButton_large_24"
+            android:layout_height="@dimen/imageButton_large_24"
             android:src="@drawable/ic_send_black_24dp"
             android:layout_gravity="center"
             android:layout_marginRight="@dimen/spacing_normal_16"/>
