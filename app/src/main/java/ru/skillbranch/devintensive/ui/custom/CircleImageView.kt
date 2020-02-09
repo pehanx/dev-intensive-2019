@@ -84,7 +84,7 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        if (drawable == null) isAvatarMode = false
+//        if (drawable == null) isAvatarMode = false
 
         if(drawable != null){
             drawAvatar(canvas)
