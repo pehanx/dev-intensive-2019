@@ -100,12 +100,11 @@ class ProfileActivity : AppCompatActivity() {
                 val valid = validateEditTextRepository(s)
                 if(!valid && s.isNotEmpty()) {
                     wr_repository.isErrorEnabled = true
-                    et_repository.error = "Невалидный адрес репозитория"
+                    wr_repository.error = "Невалидный адрес репозитория"
                     isErrorRepository = true
                 }else{
                     isErrorRepository = false
                     wr_repository.isErrorEnabled = false
-                    et_repository.error = null
                 }
             }
         })
