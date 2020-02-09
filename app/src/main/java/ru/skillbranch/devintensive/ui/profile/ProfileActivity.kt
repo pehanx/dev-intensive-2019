@@ -94,17 +94,18 @@ class ProfileActivity : AppCompatActivity() {
         et_repository.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int ) {
-            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int ) {}
 
             override fun afterTextChanged(s: Editable) {
                 val valid = validateEditTextRepository(s)
-                if(!valid && s.isNotEmpty()){
+                if(!valid && s.isNotEmpty()) {
                     wr_repository.isErrorEnabled = true
                     et_repository.error = "Невалидный адрес репозитория"
                     isErrorRepository = true
                 }else{
                     isErrorRepository = false
+                    wr_repository.isErrorEnabled = false
+                    et_repository.error = null
                 }
             }
         })
@@ -170,7 +171,6 @@ class ProfileActivity : AppCompatActivity() {
         ic_eye.visibility = if(isEdit) View.GONE else View.VISIBLE
         wr_about.isCounterEnabled = isEdit
 
-
         with(btn_edit){
             val filter:ColorFilter? = if(isEdit){
                 PorterDuffColorFilter(
@@ -195,7 +195,6 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun saveProfileInfo(){
         if(isErrorRepository) et_repository.text = null
-        wr_repository.isErrorEnabled = false
         Profile(
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),
