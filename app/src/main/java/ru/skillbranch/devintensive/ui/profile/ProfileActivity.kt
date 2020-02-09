@@ -28,7 +28,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var viewModel: ProfileViewModel
     var isEditMode = false
     lateinit var viewFields:Map<String,TextView>
-    var ErrorRepository = false
+    var isErrorRepository = false
 
     private val circleImageViewData = MutableLiveData<CircleImageView>()
 
@@ -101,9 +101,9 @@ class ProfileActivity : AppCompatActivity() {
                 val valid = validateEditTextRepository(s)
                 if(!valid && s.isNotEmpty()){
                     et_repository.error = "Невалидный адрес репозитория"
-                    ErrorRepository = true
+                    isErrorRepository = true
                 }else{
-                    ErrorRepository = false
+                    isErrorRepository = false
                 }
             }
         })
@@ -193,7 +193,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun saveProfileInfo(){
-        if(ErrorRepository) et_repository.text = null
+        if(isErrorRepository) et_repository.text = null
         Profile(
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),

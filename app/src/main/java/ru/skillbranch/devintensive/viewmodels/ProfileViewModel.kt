@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.repositories.PreferencesRepository
-import ru.skillbranch.devintensive.ui.custom.CircleImageView
 
 class ProfileViewModel:ViewModel(){
     private val repository:PreferencesRepository = PreferencesRepository
