@@ -3,17 +3,22 @@ package ru.skillbranch.devintensive.ui.profile
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.ui.custom.CircleImageView
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
+
 
 class ProfileActivity : AppCompatActivity() {
     companion object{
@@ -23,6 +28,9 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var viewModel: ProfileViewModel
     var isEditMode = false
     lateinit var viewFields:Map<String,TextView>
+    var ErrorRepository = false
+
+    private val circleImageViewData = MutableLiveData<CircleImageView>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -82,6 +90,70 @@ class ProfileActivity : AppCompatActivity() {
             viewModel.switchTheme()
         }
 
+
+        et_repository.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int ) {
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                val valid = validateEditTextRepository(s)
+                if(!valid && s.isNotEmpty()){
+                    et_repository.error = "Невалидный адрес репозитория"
+                    ErrorRepository = true
+                }else{
+                    ErrorRepository = false
+                }
+            }
+        })
+    }
+
+    private fun validateEditTextRepository(editText: Editable):Boolean {
+        val arrStr = editText.toString()
+
+        val arrayUrl = arrayListOf<String>()
+        arrayUrl.add("https://github.com/")
+        arrayUrl.add("www.github.com/")
+        arrayUrl.add("https://www.github.com/")
+        arrayUrl.add("github.com/")
+
+        val arrayStringError = arrayListOf<String>()
+        arrayStringError.add("enterprise")
+        arrayStringError.add("features")
+        arrayStringError.add("topics")
+        arrayStringError.add("collections")
+        arrayStringError.add("trending")
+        arrayStringError.add("events")
+        arrayStringError.add("marketplace")
+        arrayStringError.add("pricing")
+        arrayStringError.add("nonprofit")
+        arrayStringError.add("customer-stories")
+        arrayStringError.add("security")
+        arrayStringError.add("login")
+        arrayStringError.add("join")
+
+        var startUrl:String? = null
+        var valid = false
+        for(arr in arrayUrl){
+            if(arrStr.startsWith(arr)) {
+                valid = true
+                startUrl = arr
+            }
+        }
+        if(valid) {
+            val secondUrl = arrStr.substring(startUrl!!.length)
+            valid = if(secondUrl.isNotEmpty()){
+                Regex("^[a-zA-Z0-9]*\$").matches(secondUrl)
+            }else{
+                false
+            }
+            for(arr in arrayStringError){
+                if(arrStr.contains(arr)) valid = false
+            }
+        }
+
+        return valid
     }
 
     private fun showCurrentMode(isEdit: Boolean) {
@@ -96,6 +168,7 @@ class ProfileActivity : AppCompatActivity() {
 
         ic_eye.visibility = if(isEdit) View.GONE else View.VISIBLE
         wr_about.isCounterEnabled = isEdit
+
 
         with(btn_edit){
             val filter:ColorFilter? = if(isEdit){
@@ -120,6 +193,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun saveProfileInfo(){
+        if(ErrorRepository) et_repository.text = null
         Profile(
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),
@@ -128,6 +202,7 @@ class ProfileActivity : AppCompatActivity() {
         ).apply {
             viewModel.saveProfileData(this)
         }
+        iv_avatar.updateCircleImageView()
     }
 
 }

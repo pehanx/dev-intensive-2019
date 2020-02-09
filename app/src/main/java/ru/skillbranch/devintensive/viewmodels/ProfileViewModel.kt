@@ -11,7 +11,6 @@ import ru.skillbranch.devintensive.ui.custom.CircleImageView
 class ProfileViewModel:ViewModel(){
     private val repository:PreferencesRepository = PreferencesRepository
     private val profileData = MutableLiveData<Profile>()
-    private val circleImageViewData = MutableLiveData<CircleImageView>()
     private val appTheme = MutableLiveData<Int>()
     
     init {
@@ -29,7 +28,6 @@ class ProfileViewModel:ViewModel(){
 
     fun saveProfileData(profile: Profile){
         repository.saveProfile(profile)
-        circleImageViewData.value?.invalidate()
         profileData.value = profile
     }
 

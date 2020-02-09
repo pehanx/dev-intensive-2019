@@ -113,6 +113,11 @@ class CircleImageView @JvmOverloads constructor(
         if(isAvatarMode) prepareShader(width,height)
     }
 
+    fun updateCircleImageView(){
+        initials = toInitials()
+        invalidate()
+    }
+
     fun updateInitials(){
         this.initials = toInitials()
         if(!isAvatarMode){
