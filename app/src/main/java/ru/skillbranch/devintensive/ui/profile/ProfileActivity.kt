@@ -100,6 +100,7 @@ class ProfileActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable) {
                 val valid = validateEditTextRepository(s)
                 if(!valid && s.isNotEmpty()){
+                    wr_repository.isErrorEnabled = true
                     et_repository.error = "Невалидный адрес репозитория"
                     isErrorRepository = true
                 }else{
@@ -194,6 +195,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun saveProfileInfo(){
         if(isErrorRepository) et_repository.text = null
+        wr_repository.isErrorEnabled = false
         Profile(
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),

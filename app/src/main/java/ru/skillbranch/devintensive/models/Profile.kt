@@ -9,7 +9,7 @@ data class Profile(
     val respect:Int = 0
 ) {
 
-    val nickName:String = "John Doe"
+    val nickName:String = nickName()
     val rank:String = "Junior Android Developer"
 
     fun toMap():Map<String, Any> = mapOf(
