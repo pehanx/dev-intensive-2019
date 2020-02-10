@@ -45,9 +45,6 @@ class CircleImageView @JvmOverloads constructor(
 
     private val repository: PreferencesRepository = PreferencesRepository
 
-
-
-
     init {
         initials = toInitials()
         if(attrs!=null){
@@ -142,7 +139,6 @@ class CircleImageView @JvmOverloads constructor(
         return borderWidth.toInt()
     }
 
-
     fun getBorderColor():Int{
         return borderColor
     }
@@ -203,7 +199,6 @@ class CircleImageView @JvmOverloads constructor(
         }else{
             canvas.drawText("", viewRect.exactCenterX(), viewRect.exactCenterY() - offsetY,initialsPaint)
         }
-
     }
 
      fun toInitials(): String? {

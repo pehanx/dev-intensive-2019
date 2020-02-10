@@ -145,7 +145,7 @@ class ProfileActivity : AppCompatActivity() {
         if(valid) {
             val secondUrl = arrStr.substring(startUrl!!.length)
             valid = if(secondUrl.isNotEmpty()){
-                Regex("^[a-zA-Z0-9]*\$").matches(secondUrl)
+                Regex("^[-a-zA-Z0-9]*\$").matches(secondUrl)
             }else{
                 false
             }
