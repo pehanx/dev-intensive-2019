@@ -41,7 +41,7 @@ class CircleImageView @JvmOverloads constructor(
     private val viewRect = Rect()
     private val borderRect = Rect()
 
-    private var isAvatarMode = true
+//    private var isAvatarMode = true
 
     private val repository: PreferencesRepository = PreferencesRepository
 
@@ -97,17 +97,20 @@ class CircleImageView @JvmOverloads constructor(
 
     override fun setImageBitmap(bm: Bitmap?) {
         super.setImageBitmap(bm)
-        if(isAvatarMode) prepareShader(width,height)
+//        if(isAvatarMode)
+            prepareShader(width,height)
     }
 
     override fun setImageDrawable(drawable: Drawable?) {
         super.setImageDrawable(drawable)
-        if(isAvatarMode) prepareShader(width,height)
+//        if(isAvatarMode)
+//            prepareShader(width,height)
     }
 
     override fun setImageResource(resId: Int) {
         super.setImageResource(resId)
-        if(isAvatarMode) prepareShader(width,height)
+//        if(isAvatarMode)
+            prepareShader(width,height)
     }
 
     fun updateCircleImageView(){
@@ -115,12 +118,12 @@ class CircleImageView @JvmOverloads constructor(
         invalidate()
     }
 
-    fun updateInitials(){
-        this.initials = toInitials()
-        if(!isAvatarMode){
-            invalidate()
-        }
-    }
+//    fun updateInitials(){
+//        this.initials = toInitials()
+//        if(!isAvatarMode){
+//            invalidate()
+//        }
+//    }
 
     fun setBorderColor(hex:String){
         borderColor = hex.toInt()
@@ -159,7 +162,7 @@ class CircleImageView @JvmOverloads constructor(
 
     private fun prepareShader(w: Int, h: Int) {
         if(w == 0 || drawable == null) return
-        val srcBm = drawable.toBitmap(w,h,Bitmap.Config.ARGB_8888)
+        val srcBm = drawable.toBitmap(w,h,Bitmap.Config.ALPHA_8)
         avatarPaint.shader = BitmapShader(srcBm, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
     }
 
