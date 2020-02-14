@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.models.data
 
 import androidx.annotation.VisibleForTesting
+import org.w3c.dom.Text
 import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
 import ru.skillbranch.devintensive.models.ImageMessage
@@ -17,20 +18,19 @@ data class Chat(
 ) {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount(): Int {
-        //TODO
-        return 0
+        return messages.size
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageDate(): Date? {
-        //TODO
-        return Date()
-    }
+    private fun lastMessageDate(): Date? {
+        return messages.lastOrNull()?.date
+}
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageShort(): Pair<String, String?> = when(val lastMessage = messages.lastOrNull()){
-        //TODO
-        else -> "Когда я проходил Dev-Intensive я мало спал" to "John_Doe"
+        is TextMessage -> "${lastMessage.text}" to "${members.first().firstName}"
+        is ImageMessage -> "${members.first().firstName} - отправил фото" to "${members.first().firstName}"
+        else -> "Сообщений еще нет" to null
     }
 
     private fun isSingle(): Boolean = members.size == 1
