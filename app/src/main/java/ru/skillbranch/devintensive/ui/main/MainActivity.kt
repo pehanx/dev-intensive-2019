@@ -55,23 +55,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initToolbar() {
-        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp)
+//        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
 
     private fun initViews() {
-        chatAdapter = ChatAdapter{
-            if(it.chatType == ChatType.ARCHIVE){
-                val intent = Intent(this,
-                    ArchiveActivity::class.java)
-                startActivity(intent)
-            }else{
-                Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).show()
-            }
 
+        chatAdapter = ChatAdapter{
+                Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).show()
         }
+
+//        chatAdapter = ChatAdapter{
+//            if(it.chatType == ChatType.ARCHIVE){
+//                val intent = Intent(this,
+//                    ArchiveActivity::class.java)
+//                startActivity(intent)
+//            }else{
+//                Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).show()
+//            }
+//        }
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
 
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter){
