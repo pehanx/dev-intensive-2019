@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.utils
+package ru.skillbranch.devintensive.ui.custom
 
 import android.content.Context
 import android.graphics.*
@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.utils.Utils
 import kotlin.math.min
 
 
@@ -27,7 +28,8 @@ class CircleImageView @JvmOverloads constructor (context: Context, attrs: Attrib
 
     private var borderColor =
         DEFAULT_BORDER_COLOR
-    private var borderWidth = Utils.convertDpToPx(context, 2F)
+    private var borderWidth =
+        Utils.convertDpToPx(context, 2F)
     private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val srcMode = PorterDuffXfermode(Mode.SRC)
@@ -47,11 +49,18 @@ class CircleImageView @JvmOverloads constructor (context: Context, attrs: Attrib
     }
 
     @Dimension(unit = DP)
-    fun getBorderWidth(): Int = Utils.convertPxToDp(context, borderWidth)
+    fun getBorderWidth(): Int =
+        Utils.convertPxToDp(
+            context,
+            borderWidth
+        )
 
     @Dimension(unit = DP)
     fun setBorderWidth(dp: Int) {
-        borderWidth = Utils.convertDpToPx(context, dp.toFloat())
+        borderWidth = Utils.convertDpToPx(
+            context,
+            dp.toFloat()
+        )
         this.invalidate()
     }
 
