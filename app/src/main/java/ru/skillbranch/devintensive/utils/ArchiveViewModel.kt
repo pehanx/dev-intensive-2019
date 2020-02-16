@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.viewmodels
+package ru.skillbranch.devintensive.utils
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import ru.skillbranch.devintensive.extensions.mutableLiveData
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.repositories.ChatRepository
-import ru.skillbranch.devintensive.utils.DataGenerator
 
 class ArchiveViewModel:ViewModel(){
     private val query = mutableLiveData("")
@@ -50,5 +49,5 @@ class ArchiveViewModel:ViewModel(){
     fun handleSearchQuery(text: String) {
         query.value = text
     }
-    
+
 }
