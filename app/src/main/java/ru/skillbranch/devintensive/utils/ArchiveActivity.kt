@@ -93,11 +93,6 @@ class ArchiveActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@ArchiveActivity)
             addItemDecoration(divider)
         }
-
-//        fab.setOnClickListener{
-//            val intent = Intent(this, GroupActivity::class.java)
-//            startActivity(intent)
-//        }
     }
 
     private fun initViewModel() {

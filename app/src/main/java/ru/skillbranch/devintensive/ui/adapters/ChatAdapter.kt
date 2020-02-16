@@ -17,6 +17,8 @@ import ru.skillbranch.devintensive.models.data.Chat
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.models.data.ChatType
 import ru.skillbranch.devintensive.repositories.ChatRepository
+import ru.skillbranch.devintensive.ui.main.MainActivity
+import ru.skillbranch.devintensive.utils.ArchiveActivity
 
 
 class ChatAdapter(val listener: (ChatItem)->Unit): RecyclerView.Adapter<ChatAdapter.ChatItemViewHolder>() {
@@ -30,7 +32,6 @@ class ChatAdapter(val listener: (ChatItem)->Unit): RecyclerView.Adapter<ChatAdap
 
 
     private val chatRepository = ChatRepository
-    var archiveChats: MutableLiveData<List<Chat>> = chatRepository.loadChats()
 
 
 
@@ -54,8 +55,9 @@ class ChatAdapter(val listener: (ChatItem)->Unit): RecyclerView.Adapter<ChatAdap
 
     override fun onBindViewHolder(holder: ChatItemViewHolder, position: Int) {
 
-        items[0].chatType = ChatType.ARCHIVE
 
+
+        items[0].chatType = ChatType.ARCHIVE
         holder.bind(items[position], listener)
     }
 
@@ -165,7 +167,7 @@ class ChatAdapter(val listener: (ChatItem)->Unit): RecyclerView.Adapter<ChatAdap
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
 
-            item.messageCount = items.size
+            item.messageCount = 2
 
             with(tv_date_archive){
                 visibility = if(item.lastMessageDate!=null) View.VISIBLE else View.GONE
