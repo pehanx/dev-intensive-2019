@@ -1,7 +1,5 @@
 package ru.skillbranch.devintensive.models
 
-import ru.skillbranch.devintensive.ui.custom.CircleImageView
-
 data class Profile(
     val firstName:String,
     val lastName:String,

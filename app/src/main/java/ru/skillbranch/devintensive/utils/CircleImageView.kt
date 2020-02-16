@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.ui.custom
+package ru.skillbranch.devintensive.utils
 
 import android.content.Context
 import android.graphics.*
@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.utils.Utils
 import kotlin.math.min
 
 
@@ -26,7 +25,8 @@ class CircleImageView @JvmOverloads constructor (context: Context, attrs: Attrib
         private const val DEFAULT_BORDER_COLOR: Int = Color.WHITE
     }
 
-    private var borderColor = DEFAULT_BORDER_COLOR
+    private var borderColor =
+        DEFAULT_BORDER_COLOR
     private var borderWidth = Utils.convertDpToPx(context, 2F)
     private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -36,7 +36,9 @@ class CircleImageView @JvmOverloads constructor (context: Context, attrs: Attrib
     init {
         if (attrs != null) {
             val attrVal = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
-            borderColor = attrVal.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
+            borderColor = attrVal.getColor(R.styleable.CircleImageView_cv_borderColor,
+                DEFAULT_BORDER_COLOR
+            )
             borderWidth = attrVal.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, borderWidth)
             attrVal.recycle()
         }
