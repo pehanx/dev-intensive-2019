@@ -22,7 +22,7 @@ data class Chat(
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    private fun lastMessageDate(): Date? {
+     fun lastMessageDate(): Date? {
         return messages.lastOrNull()?.date
 }
 

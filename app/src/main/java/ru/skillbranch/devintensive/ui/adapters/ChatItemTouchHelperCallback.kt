@@ -19,6 +19,7 @@ class ChatItemTouchHelperCallback(
     private val iconBounds = Rect()
 
 
+
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder

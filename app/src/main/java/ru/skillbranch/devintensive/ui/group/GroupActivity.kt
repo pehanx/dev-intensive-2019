@@ -2,28 +2,37 @@ package ru.skillbranch.devintensive.ui.group
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.children
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_group.*
+import kotlinx.android.synthetic.main.activity_group.fab
+import kotlinx.android.synthetic.main.activity_group.toolbar
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_profile_constraint.view.*
+import kotlinx.android.synthetic.main.item_chat_single.*
+import kotlinx.android.synthetic.main.item_user_list.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.UserItem
 import ru.skillbranch.devintensive.ui.adapters.UserAdapter
+import ru.skillbranch.devintensive.ui.custom.AvatarImageView
 import ru.skillbranch.devintensive.viewmodels.GroupViewModel
-import ru.skillbranch.devintensive.viewmodels.MainViewModel
 
 class GroupActivity : AppCompatActivity() {
 
+    private lateinit var avatarImage:AvatarImageView
     private lateinit var usersAdapter: UserAdapter
     private lateinit var viewModel: GroupViewModel
 
@@ -65,6 +74,7 @@ class GroupActivity : AppCompatActivity() {
     }
 
     private fun initToolbar() {
+        toolbar.title = "Создание группы"
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -100,9 +110,10 @@ class GroupActivity : AppCompatActivity() {
     }
 
     private fun addChipToGroup(user:UserItem){
+
         val chip = Chip(this).apply {
             text = user.fullName
-            chipIcon = resources.getDrawable(R.drawable.avatar_default, theme)
+//            chipIcon = resources.getDrawable(R.drawable.avatar_default, theme)
             isCloseIconVisible = true
             tag = user.id
             isClickable = true
@@ -110,6 +121,7 @@ class GroupActivity : AppCompatActivity() {
             chipBackgroundColor = ColorStateList.valueOf(getColor(R.color.color_primary_light))
             setTextColor(Color.WHITE)
         }
+
         chip.setOnCloseIconClickListener { viewModel.handleRemoveChip(it.tag.toString())}
         chip_group.addView(chip)
     }
